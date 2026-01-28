@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mining Rich Visual</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; }
+        .mine-card { border: 2px solid #ffd700; border-radius: 15px; padding: 20px; margin: 20px; }
+        #pickaxe { width: 150px; transition: transform 0.1s; cursor: pointer; }
+        #pickaxe:active { transform: rotate(-20deg) scale(0.9); }
+        .stats { font-size: 1.2em; color: #00ff00; }
+    </style>
+</head>
+<body>
+    <h2>💎 MINING STATION 💎</h2>
+    <div class="mine-card">
+        <p class="stats">Saldo: <span id="saldo">Memuat...</span></p>
+        <img id="pickaxe" src="https://cdn-icons-png.flaticon.com/512/3022/3022134.png" onclick="mine()">
+        <p>Ketuk gambar untuk menambang!</p>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Biar layar penuh
+
+        function mine() {
+            // Memberi efek getar di HP saat klik
+            tg.HapticFeedback.impactOccurred('heavy');
+            
+            // Kirim data ke Python bahwa user nambang lewat Mini App
+            tg.sendData(JSON.stringify({action: "mine_visual"}));
+        }
+
+        // Ambil data user dari initData (opsional untuk tampilan)
+        document.getElementById('saldo').innerText = "Ready!";
+    </script>
+</body>
+</html>
